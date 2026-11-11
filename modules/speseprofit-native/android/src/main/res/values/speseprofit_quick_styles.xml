@@ -1,0 +1,1 @@
+<resources><style name="SpeseProfitQuickTheme" parent="@android:style/Theme.Material.NoActionBar"><item name="android:windowBackground">#101C27</item><item name="android:colorAccent">#CDBB98</item><item name="android:windowLightStatusBar">false</item><item name="android:windowLightNavigationBar">false</item></style></resources>

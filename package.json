@@ -1,0 +1,49 @@
+{
+  "name": "speseprofit",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "node scripts/expo.mjs start",
+    "android": "node scripts/expo.mjs start --android",
+    "web": "node scripts/expo.mjs start --web",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "lint": "eslint app src tests plugins",
+    "check": "npm run typecheck && npm run lint && npm test",
+    "prebuild:android": "node scripts/expo.mjs prebuild --platform android --no-install",
+    "build:android": "node scripts/expo.mjs run:android --app-id it.speseprofit.personal.dev",
+    "prepare:studio": "node scripts/prepare-android-studio.mjs"
+  },
+  "dependencies": {
+    "expo": "57.0.27",
+    "expo-constants": "57.0.21",
+    "expo-linking": "57.0.12",
+    "expo-modules-core": "57.0.21",
+    "expo-router": "57.0.25",
+    "expo-screen-capture": "57.0.4",
+    "expo-sqlite": "57.0.4",
+    "expo-status-bar": "57.0.1",
+    "expo-system-ui": "57.0.4",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-reanimated": "4.5.1",
+    "react-native-safe-area-context": "5.7.0",
+    "react-native-screens": "4.26.2",
+    "react-native-web": "0.21.4",
+    "react-native-worklets": "0.10.1",
+    "react-native-gesture-handler": "3.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "@types/react": "19.2.4",
+    "eslint": "9.39.5",
+    "eslint-config-expo": "57.0.2",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3"
+  },
+  "overrides": {
+    "decode-uri-component": "0.5.0"
+  }
+}

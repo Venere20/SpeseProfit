@@ -1,0 +1,4 @@
+expo-modules-core: 58 translation units without PCH; compiler preprocessing OK
+reanimated: 105 translation units without PCH; compiler preprocessing OK
+worklets: 37 translation units without PCH; compiler preprocessing OK
+app: 60 translation units without PCH; compiler preprocessing OK

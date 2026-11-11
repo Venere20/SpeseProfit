@@ -1,0 +1,26 @@
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+group = 'it.speseprofit'
+version = '0.1.0'
+android {
+  sourceSets { test.resources.srcDir "../../../tests/fixtures" }
+  namespace 'it.speseprofit.nativebridge'
+  defaultConfig {
+    versionCode 1
+    versionName '0.1.0'
+    testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+  }
+}
+dependencies {
+  implementation 'com.google.android.gms:play-services-auth:21.3.0'
+  implementation 'androidx.work:work-runtime-ktx:2.10.1'
+  testImplementation 'junit:junit:4.13.2'
+  implementation 'androidx.lifecycle:lifecycle-runtime:2.9.2'
+  implementation 'net.zetetic:sqlcipher-android:4.19.1@aar'
+  implementation 'androidx.sqlite:sqlite:2.6.2'
+  implementation 'org.bouncycastle:bcprov-jdk18on:1.86'
+  androidTestImplementation 'androidx.test:runner:1.6.2'
+  androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+}

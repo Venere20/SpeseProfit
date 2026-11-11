@@ -1,0 +1,3 @@
+// Compatibility entry point for older commands using --init-script.
+// scripts/android-project.gradle is now applied directly by the project,
+// including Android Studio imports. No init script or shell setup is required.

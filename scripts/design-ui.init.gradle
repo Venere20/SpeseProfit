@@ -1,0 +1,9 @@
+// Applied only to an explicit emulator UI-test build; never needed for a delivered APK.
+gradle.beforeProject { p ->
+  p.plugins.withId('com.android.application') {
+    p.android.testBuildType = 'release'
+    p.android.defaultConfig.testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
+    p.dependencies.add('androidTestImplementation', 'androidx.test:runner:1.6.2')
+    p.dependencies.add('androidTestImplementation', 'androidx.test.ext:junit:1.2.1')
+  }
+}

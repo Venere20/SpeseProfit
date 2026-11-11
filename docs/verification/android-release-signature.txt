@@ -1,0 +1,17 @@
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): true
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: CN=SpeseProfit Local
+Signer #1 certificate SHA-256 digest: 11de6a78553a12957a07da76cf812347e69f983ef1cc47474b19d4a86e40bb21
+Signer #1 certificate SHA-1 digest: 0da7ae8ed641110655004ff022ebaa121b24faad
+Signer #1 certificate MD5 digest: 288516931fc2316a31a8fd35ece949c1
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 3072
+Signer #1 public key SHA-256 digest: 64d3be03d3d8dfbcc69ffa29b18f0ed68119a42af8ba0fa076ea0955751e6080
+Signer #1 public key SHA-1 digest: 1be03ad90f446eb18b1b0c48cbb2869667a006e9
+Signer #1 public key MD5 digest: ed272301fea064ca21c8f47270dffdee

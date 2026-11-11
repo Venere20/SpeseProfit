@@ -1,0 +1,47 @@
+// Shared by Android Studio and the command line; no shell environment required.
+import groovy.json.JsonSlurper
+
+def appRoot = rootProject.projectDir.parentFile
+def windows = System.getProperty('os.name').toLowerCase().contains('windows')
+def reactVersion = new JsonSlurper().parse(new File(appRoot, 'node_modules/react-native/package.json')).version
+def mirror = new File(appRoot, 'work/prefab')
+def cmakeScript = new File(appRoot, 'scripts/cmake-short-prefab.cmake')
+def ninja = new File(appRoot, 'work/tools/ninja-1.13.1/ninja.exe')
+def staging = new File(System.getProperty('user.home'), 'spb')
+
+if (windows) {
+  ['debug', 'release'].each { variant ->
+    def marker = new File(mirror, "${variant}/speseprofit-source.txt")
+    if (marker.exists() && marker.text.trim() != "${reactVersion}/${variant}") {
+      throw new GradleException('Prefab locale di una versione diversa: rigenera work/prefab prima di compilare.')
+    }
+  }
+}
+
+subprojects { child ->
+  ['com.android.application', 'com.android.library'].each { pluginId ->
+    child.plugins.withId(pluginId) {
+      if (windows) {
+        child.android.externalNativeBuild.cmake.buildStagingDirectory = new File(staging, Integer.toHexString(child.path.hashCode()))
+        def args = child.android.defaultConfig.externalNativeBuild.cmake.arguments
+        if (ninja.exists()) args.add("-DCMAKE_MAKE_PROGRAM=${ninja.path.replace('\\', '/')}".toString())
+        args.addAll([
+          "-DCMAKE_PROJECT_INCLUDE=${cmakeScript.path.replace('\\', '/')}",
+          "-DSPESEPROFIT_PREFAB_ROOT=${mirror.path.replace('\\', '/')}",
+          "-DSPESEPROFIT_PREFAB_VERSION=${reactVersion}",
+          '-DCMAKE_OBJECT_PATH_MAX=240',
+          '-DCMAKE_JOB_POOLS=speseprofit_compile=1;speseprofit_link=1',
+          '-DCMAKE_JOB_POOL_COMPILE=speseprofit_compile',
+          '-DCMAKE_JOB_POOL_LINK=speseprofit_link',
+        ].collect { it.toString() })
+        // Studio probes debug translation units before their PCH files are built.
+        // Keep those probes independent of generated headers; release keeps PCH.
+        child.android.buildTypes.configureEach { variant ->
+          if (variant.name == 'debug') {
+            variant.externalNativeBuild.cmake.arguments.add('-DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON')
+          }
+        }
+      }
+    }
+  }
+}

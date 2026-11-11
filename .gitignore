@@ -1,0 +1,27 @@
+node_modules/
+.expo/
+.idea/
+*.iml
+dist/
+/android/
+/ios/
+**/build/
+**/.gradle/
+**/.cxx/
+work/
+*.log
+.env*
+*.pem
+*.key
+*.keystore
+*.jks
+*.p12
+*.db
+*.sqlite*
+*.apk
+*.aab
+
+# Local workspace migration helpers
+/LEGGIMI-PRIMA.md
+/Completa-pulizia.cmd
+/scripts/complete-cleanup.ps1

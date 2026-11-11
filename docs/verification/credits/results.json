@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-21",
+  "versionCode": 4,
+  "apk": "work/distribution/SpeseProfit-0.1.0-arm64.apk",
+  "sha256": "8672bd3a3279f3ac2c57f8450095d0ed7dbf42d198344f9a532df6cec384d2ec",
+  "applicationTestsPassed": 90,
+  "newDomainCases": 10,
+  "androidUiFlowPassed": true,
+  "androidUiSeconds": 185.104,
+  "screenshots": 21,
+  "phoneModified": false,
+  "remainingManualChecks": [
+    "Launcher e TalkBack sul telefono personale"
+  ]
+}

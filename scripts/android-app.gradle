@@ -1,0 +1,60 @@
+import groovy.json.JsonSlurper
+
+def appRoot = rootProject.projectDir.parentFile
+def keyFile = new File(appRoot, 'work/signing/speseprofit-local.p12')
+def credentialsFile = new File(appRoot, 'work/signing/credentials.json')
+if (keyFile.exists() != credentialsFile.exists()) {
+  throw new GradleException('Firma locale incompleta. Non sovrascrivere la chiave esistente: verifica work/signing.')
+}
+
+android {
+  buildTypes {
+    debug {
+      // A debug install cannot replace the private archive in the personal app.
+      applicationIdSuffix '.dev'
+      versionNameSuffix '-dev'
+      resValue 'string', 'app_name', 'SpeseProfit Dev'
+    }
+    release {
+      // Never silently ship the public debug key from the generated Expo template.
+      signingConfig = null
+    }
+  }
+}
+
+if (keyFile.exists()) {
+  // Retrieve DPAPI-protected material only inside the signing caller; never log stdout.
+  def helper = new File(appRoot, 'scripts/prepare-signing.ps1')
+  def process = ['powershell.exe', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', helper.absolutePath, '-ForSigning', '-Json'].execute(null, appRoot)
+  def secretOutput = new StringBuffer()
+  def diagnosticOutput = new StringBuffer()
+  process.waitForProcessOutput(secretOutput, diagnosticOutput)
+  if (process.exitValue() != 0) {
+    def safeFailure = (diagnosticOutput.toString() =~ /SigningCredentialError:[A-Za-z]+:[A-Za-z]+:[A-Za-z-]+/)
+    throw new GradleException('Credenziale di firma non disponibile. Nessuna chiave rigenerata. ' + (safeFailure.find() ? safeFailure.group() : 'Errore del chiamante PowerShell.'))
+  }
+  def credentials = new JsonSlurper().parseText(secretOutput.toString().replaceFirst('^\uFEFF', ''))
+  secretOutput.setLength(0)
+  diagnosticOutput.setLength(0)
+  if (!(credentials.password instanceof String) || !credentials.password ||
+      !(credentials.alias instanceof String) || !credentials.alias) {
+    throw new GradleException('Configurazione della firma locale non valida.')
+  }
+  android.signingConfigs {
+    speseprofitLocal {
+      storeFile keyFile
+      storeType 'PKCS12'
+      storePassword credentials.password
+      keyAlias credentials.alias
+      keyPassword credentials.password
+    }
+  }
+  android.buildTypes.release.signingConfig = android.signingConfigs.speseprofitLocal
+} else {
+  tasks.configureEach { task ->
+    if (task.name in ['assembleRelease', 'packageRelease', 'bundleRelease', 'installRelease']) {
+      task.doFirst { throw new GradleException('Firma privata assente. Esegui scripts/prepare-signing.ps1 prima della build personale.') }
+    }
+  }
+}
+

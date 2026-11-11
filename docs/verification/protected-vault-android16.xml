@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="it.speseprofit.nativebridge.ProtectedVaultTest" tests="8" failures="0" errors="0" skipped="0" time="19.215" timestamp="2026-10-15T08:39:40" hostname="localhost">
+  <properties>
+    <property name="device" value="SpeseProfitVaultTest(AVD) - 16" />
+    <property name="flavor" value="" />
+    <property name="project" value=":speseprofit-native" />
+  </properties>
+  <testcase name="encryptedFileAndWrongPassword" classname="it.speseprofit.nativebridge.ProtectedVaultTest" time="2.79" />
+  <testcase name="backgroundInvalidatesSessionAndDoesNotReopenOnForeground" classname="it.speseprofit.nativebridge.ProtectedVaultTest" time="1.881" />
+  <testcase name="nativeTimeoutClosesDatabaseAndKeyWithoutJavascript" classname="it.speseprofit.nativebridge.ProtectedVaultTest" time="1.444" />
+  <testcase name="creationNeverOverwritesExistingArchive" classname="it.speseprofit.nativebridge.ProtectedVaultTest" time="0.916" />
+  <testcase name="tamperedEnvelopeIsRejectedWithoutDatabaseDeletion" classname="it.speseprofit.nativebridge.ProtectedVaultTest" time="0.947" />
+  <testcase name="passwordChangePersistsAcrossNewEngine" classname="it.speseprofit.nativebridge.ProtectedVaultTest" time="4.887" />
+  <testcase name="delayPersistsAcrossEngineRestart" classname="it.speseprofit.nativebridge.ProtectedVaultTest" time="3.502" />
+  <testcase name="tamperedDatabaseIsRejectedAndPreserved" classname="it.speseprofit.nativebridge.ProtectedVaultTest" time="1.888" />
+</testsuite>
